@@ -1,0 +1,141 @@
+<div class="container-fluid d-flex justify-content-center align-items-start vh-100 py-5">
+  <router-outlet></router-outlet>
+  <div class="row w-100">
+    <!-- Tableau à gauche -->
+    <div class="col-md-7">
+      <div class="card">
+        <div class="card-header bg-success text-white text-center">
+          <h6>Etudiant List</h6>
+        </div>
+        <div class="card-body" style="overflow-x: auto; max-height: 400px;">
+          <table class="table table-bordered table-sm">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Sr No</th>
+                <th>FirstName</th>
+                <th>LastName</th>
+                <th>Phone No</th>
+                <th>Email</th>
+                <th>Age</th>
+                <th>Classe</th>
+                <th>Nationality</th>
+                <th>Adress</th>
+                <th class="text-center">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (item of etudiantList; track $index){
+                <tr>
+                <td>{{$index+1}}</td>
+                <td>{{ item.serviceNo }}</td>
+                <td>{{ item.firstname }}</td>
+                <td>{{ item.lastname }}</td>
+                <td>{{ item.phoneNo }}</td>
+                <td>{{ item.email }}</td>
+                <td>{{ item.age }}</td>
+                <td>{{ item.classe }}</td>
+                <td>{{ item.nationality }}</td>
+                <td>{{ item.adress }}</td>
+                <td class="text-center">
+                  <button class="btn btn-primary" (click)="onEdit(item)">Edit</button>
+                  <button class="btn btn-danger" (click)="onDelete(item.etId)">Delete</button>
+                </td>
+              </tr>
+              }
+              
+              
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Formulaire à droite -->
+    <div class="col-md-5">
+      <div class="card">
+        <div class="card-header bg-success text-white text-center">
+          <h4>New Etudiant</h4>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="EtudiantForm">
+            <div class="row g-3">
+              <div class="col-6">
+                <label for="serviceNo" class="form-label">Matricle</label>
+                <input type="text" formControlName="serviceNo" id="serviceNo" class="form-control" />
+                <div class="text-danger">
+                  @if (EtudiantForm.controls['serviceNo'].touched) {
+                    @if (EtudiantForm.controls['serviceNo'].errors?.['required']) {
+                      <span> Matricle IS Required</span>
+                    }@if (EtudiantForm.controls['serviceNo'].errors?.['minlength']) {
+                      <span> Min 6 Char IS Required</span>
+                    }
+                  }
+                </div>
+              </div>
+              <div class="col-6">
+                <label for="firstname" class="form-label">FirstName</label>
+                <input type="text" formControlName="firstname" id="firstname" class="form-control" />
+                <div class="text-danger">
+                  @if (EtudiantForm.controls['firstname'].touched) {
+                    @if (EtudiantForm.controls['firstname'].errors?.['required']) {
+                      <span> FirstName IS Required</span>
+                    }
+                  }
+                </div>
+              </div>
+              <div class="col-6">
+                <label for="lastname" class="form-label">LastName</label>
+                <input type="text" formControlName="lastname" id="lastname" class="form-control" />
+                <div class="text-danger">
+                  @if (EtudiantForm.controls['lastname'].touched) {
+                    @if (EtudiantForm.controls['lastname'].errors?.['required']) {
+                      <span> LastName IS Required</span>
+                    }
+                  }
+                </div>
+              </div>
+              <div class="col-6">
+                <label for="classe" class="form-label">Classe</label>
+                <input type="text" formControlName="classe" id="classe" class="form-control" />
+
+              </div>
+              <div class="col-6">
+                <label for="age" class="form-label">Age</label>
+                <input type="number" formControlName="age" id="age" class="form-control" />
+              </div>
+              <div class="col-6">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" formControlName="email" id="email" class="form-control" />
+              </div>
+              <div class="col-6">
+                <label for="nationality" class="form-label">Nationality</label>
+                <input type="text" formControlName="nationality" id="nationality" class="form-control" />
+              </div>
+              <div class="col-6">
+                <label for="phoneNo" class="form-label">Phone No</label>
+                <input type="text" formControlName="phoneNo" id="phoneNo" class="form-control" />
+              </div>
+              <div class="col-6">
+                <label for="adress" class="form-label">Adress</label>
+                <input type="text" formControlName="adress" id="adress" class="form-control" />
+              </div>
+            </div>
+            <div class="row pt-4">
+              <div class="col-6 text-center">
+                <button type="reset" class="btn btn-secondary w-100" type="button" (click)="reset()">Reset</button>
+              </div>
+              <div class="col-6 text-center">
+                @if(EtudiantForm.controls['etId'].value == '1') {
+                  <button type="submit" class="btn btn-success w-100" type ="button" [disabled]="EtudiantForm.invalid" (click)="onSave()">Save</button>
+                }@else{
+                  <button type="submit" class="btn btn-warning w-100" type ="button" [disabled]="EtudiantForm.invalid" (click)="onUpdate()">Update</button>
+                } 
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
