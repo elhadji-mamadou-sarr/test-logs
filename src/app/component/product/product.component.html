@@ -1,1 +1,121 @@
-<p>product works!</p>
+
+
+<div class="container mt-5">
+
+  <div class="d-flex justify-content-between">
+    <h3>Liste des Produits </h3>
+    <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#productModal">Ajouter un produit</button>
+  </div>
+
+    <div class="card">
+      
+        <div class="card-header bg-success text-white text-center">
+        <h6>Liste produits</h6>
+      </div>
+      <div class="card-body" >
+        <table class="table table-bordered table-sm">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Libelle</th>
+              <th>Prix</th>
+              <th>Description</th>
+              <th class="text-center">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+              <tr  *ngFor="let product of products">
+              <td>{{product.id}}</td>
+              <td>{{product.name}}</td>
+              <td>{{product.price}}</td>
+              <td>{{product.description}}</td>
+              <td class="text-center">
+                <button class="btn btn-primary" (click)="onEdit(product.id)">Edit</button>
+                <button class="btn btn-danger" (click)="onDelete(product.id)">Delete</button>
+              </td>
+            </tr>
+            
+            
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+</div>
+
+
+
+
+ <!-- Modal Bootstrap -->
+ <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" >
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Ajouter Produit</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+      </div>
+      <div class="modal-body">
+        
+        <form (ngSubmit)="addProduct()" class="row g-3">
+
+          <div class="form-group mb-2">
+            <label for="code">Libelle</label>
+            <input type="text" class="form-control" id="name" [(ngModel)]="newProduct.name" name="name" required>
+          </div>
+
+          <div class="form-group mb-2">
+            <label for="price">Prix</label>
+            <input type="text" class="form-control" id="price" [(ngModel)]="newProduct.price" name="price" required>
+          </div>
+
+          <div class="form-group mb-2">
+            <label for="description">Description</label>
+            <textarea type="text" class="form-control" id="description" [(ngModel)]="newProduct.description" name="description"></textarea>
+          </div>
+          
+          <div class="col-md-12">
+            <button type="submit" class="btn btn-success mt-4">Enregistrer</button>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal pour Modifier Produit -->
+<div class="modal fade" id="modifierProductModal" tabindex="-1" aria-labelledby="modifierProductModalTitle" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title">Modifier Produit</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+      <form (ngSubmit)="updateProduct(showProduct!.id, showProduct)" class="row g-3">
+
+          <div class="form-group mb-2">
+            <label for="code">Libelle</label>
+            <input type="text" class="form-control" id="name" [(ngModel)]="showProduct!.name" name="name" required>
+          </div>
+
+          <div class="form-group mb-2">
+            <label for="price">Prix</label>
+            <input type="text" class="form-control" id="price" [(ngModel)]="showProduct!.price" name="price" required>
+          </div>
+          
+          <div class="form-group mb-2">
+            <label for="description">Description</label>
+            <textarea type="text" class="form-control" id="description" [(ngModel)]="showProduct!.description" name="description"></textarea>
+          </div>
+        <div class="col-md-12">
+          <button type="submit" class="btn btn-success mt-4">Mettre à Jour</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</div>

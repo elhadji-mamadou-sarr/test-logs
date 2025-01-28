@@ -12,6 +12,10 @@ export class CategoryService {
 
   constructor(private http: HttpClient) { }
 
+  getCategories(): Observable<Category[]> {
+    return this.http.get<Category[]>(this.apiUrl);
+  }
+
    
   addCategory(category: Category): Observable<Category> {
     const headers = new HttpHeaders({

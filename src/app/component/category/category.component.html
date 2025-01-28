@@ -1,1 +1,110 @@
-<p>category works!</p>
+
+
+<div class="container mt-5">
+
+    <div class="d-flex justify-content-between">
+      <h3>Liste des categories </h3>
+      <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#categoryModal">Ajouter un categorie</button>
+    </div>
+  
+      <div class="card">
+        
+          <div class="card-header bg-success text-white text-center">
+          <h6>Liste categories</h6>
+        </div>
+        <div class="card-body" >
+          <table class="table table-bordered table-sm">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Libelle</th>
+                <th>Description</th>
+                <th class="text-center">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr  *ngFor="let category of categories">
+                <td>{{category.id}}</td>
+                <td>{{category.name}}</td>
+                <td>{{category.description}}</td>
+                <td class="text-center">
+                  <button class="btn btn-primary" (click)="onEdit(category.id)">Edit</button>
+                  <button class="btn btn-danger" (click)="onDelete(category.id)">Delete</button>
+                </td>
+              </tr>
+              
+              
+            </tbody>
+          </table>
+        </div>
+      </div>
+  
+  </div>
+  
+  
+  
+  
+   <!-- Modal Bootstrap -->
+   <div class="modal fade" id="categoryModal" tabindex="-1" aria-labelledby="categoryModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" >
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Ajouter categorie</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  
+        </div>
+        <div class="modal-body">
+          
+          <form (ngSubmit)="addCategory()" class="row g-3">
+  
+            <div class="form-group mb-2">
+              <label for="code">Libelle</label>
+              <input type="text" class="form-control" id="name" [(ngModel)]="newCategory.name" name="name" required>
+            </div>
+  
+            <div class="form-group mb-2">
+              <label for="description">Description</label>
+              <textarea type="text" class="form-control" id="description" [(ngModel)]="newCategory.description" name="description"></textarea>
+            </div>
+            
+            <div class="col-md-12">
+              <button type="submit" class="btn btn-success mt-4">Enregistrer</button>
+            </div>
+  
+          </form>
+  
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  <!-- Modal pour Modifier categorie -->
+  <div class="modal fade" id="modifierCategoryModal" tabindex="-1" aria-labelledby="modifierCategoryModalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modifier categorie</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="updateCategory(showCategory!.id, showCategory)" class="row g-3">
+  
+            <div class="form-group mb-2">
+              <label for="code">Libelle</label>
+              <input type="text" class="form-control" id="name" [(ngModel)]="showCategory!.name" name="name" required>
+            </div>
+            
+            <div class="form-group mb-2">
+              <label for="description">Description</label>
+              <textarea type="text" class="form-control" id="description" [(ngModel)]="showCategory!.description" name="description"></textarea>
+            </div>
+          <div class="col-md-12">
+            <button type="submit" class="btn btn-success mt-4">Mettre à Jour</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  </div>
+  
